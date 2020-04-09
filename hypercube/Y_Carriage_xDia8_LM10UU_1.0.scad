@@ -16,13 +16,18 @@ module y_carriage_base() {
       union() {
          // body
          difference() {
-            linear_extrude(18) offset(r=5) offset(r=-5)
+            linear_extrude(45) offset(r=5) offset(r=-5)
                polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
                   [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
-            translate([0,0,-0.1]) linear_extrude(19)
+            translate([0,0,18]) linear_extrude(45-18-6.5-5) offset(r=5.5) offset(r=-5)
+               polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
+                  [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
+            translate([0,0,18]) linear_extrude(45-18-6.5) offset(r=5.5) offset(r=-5)
+               polygon([[-40,-17.5],[40,-17.5],[40,0],[-40,0]]);
+            translate([0,0,-0.1]) linear_extrude(46)
                polygon([[11.5,17.51],[17.25,17.51],[17.25,9.85],
                   [23,4.1],[21.9,4.1],[16.5,9.5],[11.5,9.5]]);
-            mirror([1,0,0]) translate([0,0,-0.1]) linear_extrude(19)
+            mirror([1,0,0]) translate([0,0,-0.1]) linear_extrude(46)
                polygon([[11.5,17.51],[17.25,17.51],[17.25,9.85],
                   [23,4.1],[21.9,4.1],[16.5,9.5],[11.5,9.5]]);
          }
@@ -35,7 +40,7 @@ module y_carriage_base() {
       rotate([90,0,0]) cylinder(d=19,h=40,center=true);
       // x rails
       for(x_pos = [-22.5,22.5]) {
-         translate([x_pos,0,0]) cylinder(d=8.4,h=40,center=true);
+         translate([x_pos,0,0]) cylinder(d=8.4,h=100,center=true);
       }
       // xy belt1
       intersection() {
@@ -69,8 +74,8 @@ module xy_belt_mount() {
 
 module x_belt_mount() {
    cylinder(d=6.2,h=3.1,center=false);
-   cylinder(d=3,h=18,center=false);
-   translate([0,0,10]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
+   cylinder(d=3,h=14,center=false);
+   translate([0,0,9]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
 }
 
 module y_rail_mount() {
@@ -96,9 +101,11 @@ module y_carriage_scad() {
       // xy belt2 mount
       translate([16.6,6.365,22.5]) rotate([0,-90,0]) xy_belt_mount();
       // x belt2 mount
-      rotate([0,-90,45]) translate([6,-7,-24.85]) x_belt_mount();
+      rotate([0,-90,45]) translate([13,-7,-24.85]) x_belt_mount();
+      rotate([0,-90,45]) translate([40,-7,-24.85]) x_belt_mount();
       // x belt1 mount
-      mirror([1,0,0]) rotate([0,-90,45]) translate([6,-7,-24.85]) x_belt_mount();
+      mirror([1,0,0]) rotate([0,-90,45]) translate([13,-7,-24.85]) x_belt_mount();
+      mirror([1,0,0]) rotate([0,-90,45]) translate([40,-7,-24.85]) x_belt_mount();
       // y rail mount
       translate([12.5,12.5,-0.1]) y_rail_mount();
       translate([-12.5,12.5,-0.1]) y_rail_mount();
@@ -112,3 +119,4 @@ y_carriage_scad();
 // Revision history:
 // 2020-04-08: Initial revision - re-creation from STL
 // 2020-04-08: Modify part to include square nuts inside (need print pause)
+// 2020-04-09: Add additional rail mount. Move down screw up to help with 3030 profile collision.
