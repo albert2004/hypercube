@@ -1,6 +1,12 @@
 // OpenSCAD file for hypercube parts.
 // Copyright by Piotr Stachura <pstachura2012@gmail.com>
 
+// M3 nut: head: 5.4mm, rod: 2.93mm
+// M3 square: 5.44x1.7
+// M3 hexagon: 5.44, 6.2x2.46
+
+square_nut_add = 0.16;
+
 //%import("Y_Carriage_xDia8_LM10UU_1.0.stl");
 
 $fn=90;
@@ -14,15 +20,14 @@ module y_carriage_base() {
                polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
                   [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
             translate([0,0,-0.1]) linear_extrude(19)
-               polygon([[11.5,17.51],[13.5,17.51],[17.25,14],[17.25,9.85],
+               polygon([[11.5,17.51],[17.25,17.51],[17.25,9.85],
                   [23,4.1],[21.9,4.1],[16.5,9.5],[11.5,9.5]]);
             mirror([1,0,0]) translate([0,0,-0.1]) linear_extrude(19)
-               polygon([[11.5,17.51],[13.5,17.51],[17.25,14],[17.25,9.85],
+               polygon([[11.5,17.51],[17.25,17.51],[17.25,9.85],
                   [23,4.1],[21.9,4.1],[16.5,9.5],[11.5,9.5]]);
          }
          translate([0,0,0]) linear_extrude(45) offset(r=2) offset(r=-2)
-            polygon([[-12.5,-17.5],[12.5,-17.5],[16.5,-13.5],[16.5,13.5],[12.5,17.5],
-               [-12.5,17.5],[-16.5,13.5],[-16.5,-13.5]]);
+            polygon([[-12.5,-17.5],[12.5,-17.5],[16.5,-13.5],[16.5,17.5],[-16.5,17.5],[-16.5,-13.5]]);
       }
       // y belt
       translate([-5.5,0,15.25]) cube([9,40,5.5],true);
@@ -64,8 +69,13 @@ module xy_belt_mount() {
 
 module x_belt_mount() {
    cylinder(d=6.2,h=3.1,center=false);
-   cylinder(d=3,h=20,center=false);
-   translate([0,0,10]) cylinder(d=7,h=20,center=false,$fn=6);
+   cylinder(d=3,h=18,center=false);
+   translate([0,0,10]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
+}
+
+module y_rail_mount() {
+   cylinder(d=3.1,h=10,center=false);
+   translate([0,0,4]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
 }
 
 module y_carriage_scad() {
@@ -90,10 +100,10 @@ module y_carriage_scad() {
       // x belt1 mount
       mirror([1,0,0]) rotate([0,-90,45]) translate([6,-7,-24.85]) x_belt_mount();
       // y rail mount
-      translate([12.5,12.5,-0.1]) cylinder(d=4.5,h=5,center=false);
-      translate([-12.5,12.5,-0.1]) cylinder(d=4.5,h=5,center=false);
-      translate([-12.5,-12.5,-0.1]) cylinder(d=4.5,h=5,center=false);
-      translate([12.5,-12.5,-0.1]) cylinder(d=4.5,h=5,center=false);
+      translate([12.5,12.5,-0.1]) y_rail_mount();
+      translate([-12.5,12.5,-0.1]) y_rail_mount();
+      translate([-12.5,-12.5,-0.1]) y_rail_mount();
+      translate([12.5,-12.5,-0.1]) y_rail_mount();
    }
 }   
 
@@ -101,3 +111,4 @@ y_carriage_scad();
 
 // Revision history:
 // 2020-04-08: Initial revision - re-creation from STL
+// 2020-04-08: Modify part to include square nuts inside (need print pause)
