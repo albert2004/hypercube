@@ -5,11 +5,49 @@
 // M3 square: 5.44x1.7
 // M3 hexagon: 5.44, 6.2x2.46
 
-square_nut_add = 0.16;
+square_nut_add = 0.3;
 
 //%import("Y_Carriage_xDia8_LM10UU_1.0.stl");
 
 $fn=90;
+
+module support_low() {
+   multmatrix(m = [[1, 0, 0, -20],
+                   [0, 1, 0, 0],
+                   [0, 0, 1, 0],
+                   [0, 0, 0, 1]]) difference() {
+      linear_extrude(15) offset(r=5) offset(r=-5)
+         polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
+                  [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
+      translate([-17.5,-35,-1]) cube([60,70,100],false);
+   }
+}
+
+module support_high1() {
+   multmatrix(m = [[1, 0, 1.1, -20],
+                   [0, 1, 0, 0],
+                   [0, 0, 1, 15],
+                   [0, 0, 0, 1]]) difference() {
+      linear_extrude(18.5-0.4) offset(r=5) offset(r=-5)
+         polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
+                  [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
+      translate([-17.5,-35,-1]) cube([60,70,100],false);
+      translate([-50,-69.5,-1]) cube([60,70,100],false);
+   }
+}
+
+module support_high2() {
+   multmatrix(m = [[1, 0, 0.87, -20],
+                   [0, 1, 0, 0],
+                   [0, 0, 1, 15],
+                   [0, 0, 0, 1]]) difference() {
+      linear_extrude(23.6-0.4) offset(r=5) offset(r=-5)
+         polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
+                  [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
+      translate([-17.5,-35,-1]) cube([60,70,100],false);
+      translate([-50,-1,-1]) cube([60,70,100],false);
+   }
+}
 
 module y_carriage_base() {
    difference() {
@@ -68,19 +106,19 @@ module y_carriage_base() {
 
 module xy_belt_mount() {
    cylinder(d=6.2,h=3.1,center=false);
-   cylinder(d=3,h=100,center=false);
+   cylinder(d=3.5,h=100,center=false);
    translate([0,0,28.1]) cylinder(d=4.5,h=10,center=false);
 }
 
 module x_belt_mount() {
    cylinder(d=6.2,h=3.1,center=false);
-   cylinder(d=3,h=14,center=false);
-   translate([0,0,9]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
+   cylinder(d=3.5,h=14,center=false);
+   translate([0,0,9]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2.1,center=false,$fn=4);
 }
 
 module y_rail_mount() {
-   cylinder(d=3.1,h=10,center=false);
-   translate([0,0,4]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2,center=false,$fn=4);
+   cylinder(d=3.5,h=10,center=false);
+   translate([0,0,4]) rotate([0,0,45]) cylinder(d=(5.44+square_nut_add)*1.41,h=2.1,center=false,$fn=4);
 }
 
 module y_carriage_scad() {
@@ -114,9 +152,18 @@ module y_carriage_scad() {
    }
 }   
 
+module supports() {
+   support_low();
+   support_high1();
+   support_high2();
+}
+
 y_carriage_scad();
+//supports();
+//mirror([1,0,0]) supports();
 
 // Revision history:
 // 2020-04-08: Initial revision - re-creation from STL
 // 2020-04-08: Modify part to include square nuts inside (need print pause)
 // 2020-04-09: Add additional rail mount. Move down screw up to help with 3030 profile collision.
+// 2020-04-20: Update sizes for better fit of screws. Add custom supports.
