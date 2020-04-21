@@ -1,13 +1,12 @@
-//%rotate([0,0,90]) import("Y_Carriage_Clamp_LM10UU_1.0.stl");
+// OpenSCAD file for hypercube parts.
+// Copyright by Piotr Stachura <pstachura2012@gmail.com>
+
 $fn=90;
 module y_rail_mount() {
-   difference() {
-      union() {
-         cylinder(d=6.2,h=3.1,center=false);
-         cylinder(d=3.5,h=100,center=false);
-      }
-      translate([0,0,3]) cube([8,8,0.2],true);
-   }
+   cylinder(d=6.2,h=3.2,center=false);
+   cylinder(d=3.5,h=100,center=false);
+   translate([0,0,3.3]) cube([8,3.5,0.21],true);
+   translate([0,0,3.5]) cube([3.5,3.5,0.21],true);
 }
 
 difference() {
@@ -25,3 +24,7 @@ difference() {
    translate([-12.5,-12.5,-0.1]) y_rail_mount();
    translate([12.5,-12.5,-0.1]) y_rail_mount();
 }
+
+// Revision history:
+// 2020-04-20: Initial revision - re-creation from STL
+// 2020-04-21: Modify part to not use support under screws
