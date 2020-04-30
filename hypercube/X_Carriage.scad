@@ -111,7 +111,7 @@ module x_carriage() {
       mirror([1,0,0]) belt_tensioner_rail_one_side();
       for(y=[22.5,-22.5]) {
          translate([-28,y,12]) rotate([0,90,0]) cylinder(d=15.1,h=56,center=false);
-         translate([-28,y,12]) rotate([90,0,90]) linear_extrude(56) polygon([[0,0],[6,11],[-6,11]]);
+         translate([-28,y,12]) rotate([90,0,90]) linear_extrude(56) polygon([[0,0],[7,11],[-7,11]]);
       }
       belt_tensioner_cut();
       mirror([1,0,0]) belt_tensioner_cut();
@@ -137,3 +137,4 @@ x_carriage();
 
 // Revision history:
 // 2020-04-24: Initial revision - re-creation from STL with modifications
+// 2020-04-30: Small updates

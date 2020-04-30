@@ -10,7 +10,7 @@ module y_rail_mount() {
 }
 
 difference() {
-   linear_extrude(12.5) offset(r=5) offset(r=-5)
+   linear_extrude(12) offset(r=5) offset(r=-5)
       polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
          [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
    translate([0,0,13]) rotate([90,0,0]) cylinder(d=19,h=40,center=true);
@@ -28,3 +28,4 @@ difference() {
 // Revision history:
 // 2020-04-20: Initial revision - re-creation from STL
 // 2020-04-21: Modify part to not use support under screws
+// 2020-04-30: Lower part - make more space for bearing hold
