@@ -1,2 +1,2 @@
-# 3d_models
-3D models created for any purpose
+# Hypercube
+3D models created for Hypercube 3D printer
