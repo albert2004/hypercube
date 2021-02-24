@@ -33,12 +33,13 @@ if(1 == modules) {
 module 2020_pin() {
    difference() {
       union() {
-         cube([16,10,25],false);
-         translate([0,0,20]) cube([10,2,20],false);
+         translate([0,12,0]) cube([16,4,25],false);
+         translate([0,0,20]) cube([5,2,20],false);
+         translate([0,0,20]) cube([5,13,3],false);
       }
       hull() {
-         translate([8,-1,5]) rotate([-90,0,0]) cylinder(d=4,h=20,center=false);
-         translate([8,-1,20]) rotate([-90,0,0]) cylinder(d=4,h=20,center=false);
+         translate([8,10,5]) cube([4,20,4],center=true);
+         translate([8,10,20]) cube([4,20,4],center=true);
       }
    }
 }
