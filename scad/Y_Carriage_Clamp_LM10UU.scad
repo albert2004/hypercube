@@ -13,7 +13,8 @@ difference() {
    linear_extrude(12) offset(r=5) offset(r=-5)
       polygon([[-17.5,-17.5],[17.5,-17.5],[31.5,-3.5],[31.5,3.5],
          [17.5,17.5],[-17.5,17.5],[-31.5,3.5],[-31.5,-3.5]]);
-   translate([0,0,13]) rotate([90,0,0]) cylinder(d=19,h=40,center=true);
+   translate([0,0,13.5]) rotate([90,0,0]) cylinder(d=20,h=40,center=true);
+   translate([0,0,13]) cube([15,40,19],true);
    // x rails
    for(x_pos = [-22.5,22.5]) {
       translate([x_pos,0,0]) cylinder(d=11,h=100,center=true);

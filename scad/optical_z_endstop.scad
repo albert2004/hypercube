@@ -33,9 +33,9 @@ if(1 == modules) {
 module 2020_pin() {
    difference() {
       union() {
-         translate([0,12,0]) cube([16,4,25],false);
+         translate([0,15,0]) cube([16,4,25],false);
          translate([0,0,20]) cube([5,2,20],false);
-         translate([0,0,20]) cube([5,13,3],false);
+         translate([0,0,20]) cube([5,16,3],false);
       }
       hull() {
          translate([8,10,5]) cube([4,20,4],center=true);
