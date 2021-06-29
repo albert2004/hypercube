@@ -184,7 +184,7 @@ module titan_mount_v2() {
       }
       difference() {
          translate([0,0,51.5]) cube([3,40,34],false);
-         translate([-1,30,51.5+11]) cube([5,11,21],false);
+         translate([-1,30,51.5+11]) cube([5,11,24],false);
          for(y=[4,12,20]) for(z=[0,6,13,19]) {
             translate([-1,y,62.5+z]) cube([5,5,2],false);
          }
@@ -335,7 +335,7 @@ titan_mount_v2();
 //bowden_mount();
 //belt_hold();
 //cable_chain_xy_end();
-fan_mount();
+//fan_mount();
 
 // 29, 62.1
 

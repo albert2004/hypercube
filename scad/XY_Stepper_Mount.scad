@@ -4,7 +4,7 @@
 $fn=90;
 
 // left_side = 7, right side = 2
-z_offset = 2;
+z_offset = 7;
 
 module stepper_mount_base() {
    translate([0,0,-1+z_offset]) linear_extrude(6) offset(r=1) offset(r=-1)
@@ -34,7 +34,13 @@ module stepper_xy_mount() {
          }
       }
       translate([-15.5,-10,16]) rotate([-90,0,0]) cylinder(d=10.5,h=30,center=false);
-      translate([-29,-2.25,-2])cube([10,1,30],false);
+      hull() {
+         translate([-17.25,-2,12]) rotate([-90,0,0]) cylinder(d=10.5,h=30,center=false);
+         translate([-17.25,-2,-5]) rotate([-90,0,0]) cylinder(d=10.5,h=30,center=false);
+      }
+      translate([0,-11.25,0]) rotate([90,0,180]) linear_extrude(10) offset(r=5.25) offset(r=-5.25)
+         polygon([[10.25,-10],[40,-10],[40,45],[10.25,18.35]]);
+      translate([-29,-2.25,-2])cube([18.75,1,30],false);
       translate([-19.5,-2.25,-2])cube([1,21,20],false);
 
       translate([-28.01,7.75,8.5]) rotate([0,90,0]) cylinder(d=3.5,h=30,center=false);
@@ -57,5 +63,5 @@ module stepper_xy_mount() {
    }
 }
 
-mirror([1,0,0]) stepper_xy_mount(); // right side
-//stepper_xy_mount(); // left side
+//mirror([1,0,0]) stepper_xy_mount(); // right side
+stepper_xy_mount(); // left side

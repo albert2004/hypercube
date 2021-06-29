@@ -85,7 +85,6 @@ module belt_tensioner_cut_no_opto() {
       polygon([[-40,-33.5],[-22.5,-33.5],[-22.5,-9],[-20.5,-9],
                [-20.5,9],[-22.5,9],[-22.5,33.5],[-40,33.5]]);
 }
-
 module m3_mount(length=10) {
    cylinder(d=6.2,h=3.2,center=false);
    cylinder(d=3.5,h=length,center=false);
@@ -148,7 +147,10 @@ module x_carriage() {
       belt_tensioner_rail_one_side();
       mirror([1,0,0]) belt_tensioner_rail_one_side();
       for(y=[22.5,-22.5]) {
-         translate([-28,y,12]) rotate([0,90,0]) cylinder(d=19.2,h=56,center=false);
+         translate([-28,y,12]) rotate([0,90,0]) cylinder(d=19.2-0.6,h=56,center=false);
+         translate([-28,y,12]) rotate([0,90,0]) cylinder(d=19.2,h=17.3,center=false);
+         translate([-9.9,y,12]) rotate([0,90,0]) cylinder(d=19.2,h=19.8,center=false);
+         translate([10.7,y,12]) rotate([0,90,0]) cylinder(d=19.2,h=17.3,center=false);
       }
       translate([-28,22.5,12]) rotate([90,0,90]) linear_extrude(56) polygon([[0,0],[15,0],[15,15],[-5.3,15],[-5.3,0]]);
       translate([-28,-22.5,12]) rotate([90,0,90]) linear_extrude(56) polygon([[0,0],[-15,0],[-15,15],[5.3,15],[5.3,0]]);
